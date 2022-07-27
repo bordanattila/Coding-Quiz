@@ -9,9 +9,14 @@ var theArea = document.querySelector("section");
 var answerCheck = document.querySelector(".check");
 var selected = "";
 var questionCount = 1;
+var theTimer = document.querySelector(".timer");
+var timerCount;
+var correctCount;
 
 // Create  question database object
-var questionData = {
+// var questionData = require("./questions.json")
+var questionData = 
+{
     "1":
     { 
     "question": "What does HTML stand for? shfadkjsahf kjdshfjh dsak jhfdja fkjdhasfkj hauihf aurgfdau sbhvgfd ",
@@ -54,12 +59,12 @@ var questionData = {
 document.querySelector(".btn").addEventListener("click", function () {
     startButton.classList.add("btnHidden");
     theArea.classList.add("answers");
-    // starttimer();
+    startTimer();
     startQuiz(questionData);
 })
 
 // Create the answer options
-var startQuiz = function (questionData) {
+startQuiz = function (questionData) {
     questionArea.textContent = questionData[questionCount].question;
     firstOption.textContent = questionData[questionCount].optionA;
     secondOption.textContent = questionData[questionCount].optionB;
@@ -76,9 +81,10 @@ for (var i = 0; i < document.querySelectorAll(".option").length; i++) {
 }
 
 // Check if the answer clicke is correct
-var checkAnswer = function (selected) {
+checkAnswer = function (selected) {
     if (selected === questionData[questionCount].correct) {
         answerCheck.textContent = "Last answer: " + "Correct";
+        correctCount++;
     } else {
         answerCheck.textContent = "Last answer: " + "Wrong";
     }
@@ -87,3 +93,14 @@ var checkAnswer = function (selected) {
 }
 
 // Create timer function
+startTimer = function () {
+    timerCount = 30;
+    var timer = setInterval(function () {
+        timerCount--;
+        theTimer.textContent = "Timer: " + timerCount;
+        if (timerCount === 0) {
+            questionArea.textContent = "Game Over";
+            clearInterval(timer);
+        }
+    }, 1000);
+}

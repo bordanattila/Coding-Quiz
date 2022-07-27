@@ -36,6 +36,8 @@ li {
 .btn {
     background-color: aqua;
     width: 6rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .btnHidden {
