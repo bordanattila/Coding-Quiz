@@ -11,7 +11,7 @@
 <body>
 
   <header>
-    <span>View high Score</span>
+    <span class="viewHigh">View high Score</span>
     <span class="timer">Timer: </span>
   </header>
     <section class="quiz_area ">
@@ -23,13 +23,23 @@
         <li class="answer1 option"></li>
         <li class="answer2 option"></li>
         <li class="answer3 option"></li>
-        <li class="answer4 option"></li>        
+        <li class="answer4 option"></li>
+        
+        <form action="/action_page.php" class="initials">
+
+            <label for="player" >Enter your initials</label>
+            <input type="text" id="player" name="player" />
+            <button type="submit" class="submit">Submit</button>
+        </form>
+        
+            <hr>    
         <li class="check"></li>
     </section>
+   
   <footer>
     
   </footer>
-  <!-- <script src="data.json"></script> -->
+  
   <script src="./script.js"></script>
 </body>
 

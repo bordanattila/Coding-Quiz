@@ -8,6 +8,15 @@ header {
     padding: 0 20px;
 }
 
+hr {
+    border-style: none;
+    border-top-style: solid;
+    border-color: MediumAquamarine;
+    border-width: 5px;
+    height: 0px;
+    width: 75%;
+}
+
 .quiz_area {
     display: flex;
     flex-direction: column;
@@ -43,4 +52,9 @@ li {
 .btnHidden {
     display: none;
 }
+
+.initials {
+    display: none;
+}
+
 
