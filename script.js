@@ -12,7 +12,7 @@ var questionCount = 1;
 var theTimer = document.querySelector(".timer");
 var timerCount;
 var correctCount = 0;
-var entryField = document.querySelector(".initials");
+var entryField = document.querySelector(".hide");
 var playerName = document.querySelector("#player");
 var pname = "";
 var highestScore = 0;
@@ -72,7 +72,7 @@ var size = Object.keys(questionData).length
 
 // Add eventListener to the start button. Hide button once it is clicked
 document.querySelector(".btn").addEventListener("click", function () {
-    startButton.classList.add("btnHidden");
+    startButton.classList.add("hide");
     theArea.classList.add("answers");
     startTimer();
     startQuiz(questionData);
@@ -111,6 +111,7 @@ checkAnswer = function (selected) {
         correctCount++;
     } else {
         answerCheck.textContent = "Last answer: " + "Wrong";
+        timerCount = timerCount - 5;
     }
     questionCount++;
     startQuiz(questionData);
@@ -118,7 +119,7 @@ checkAnswer = function (selected) {
 
 // Create timer function
 startTimer = function () {
-    timerCount = 10;
+    timerCount = 20;
     var timer = setInterval(function () {
         timerCount--;
         theTimer.textContent = "Timer: " + timerCount;
@@ -137,27 +138,45 @@ gameOver = function () {
     secondOption.textContent = "";
     thirdOption.textContent = "";
     fourthOption.textContent = "";
-    entryField.classList.remove("initials");
+    entryField.classList.remove("hide");
     store()
 }
 
 // Store data in local storage
 store = function () {
     document.querySelector(".submit").addEventListener("click", function () {
-        pname = playerName.value;
-        console.log(pname)
-        localStorage.setItem("playername", pname);
-        localStorage.setItem("score", correctCount)
-        var currentHighScore = localStorage.getItem("Higest score")
-        console.log(currentHighScore)
+        pname = playerName.value;        
+        localStorage.setItem("Player name", pname);
+        localStorage.setItem("Score", correctCount);
+        var currentHighScore = localStorage.getItem("Higest score");        
         if (correctCount > currentHighScore) {
             localStorage.setItem("Higest score", correctCount);
             localStorage.setItem("Higest Score player", pname);
         }
+        answerCheck.textContent = "PUT A BUTTON HERE"
     })
 }  
 
 showHigh = function () {
+    var initials = localStorage.getItem("Higest Score player");
+    var score = localStorage.getItem("Higest score");
+    var buttons = document.querySelector(".goBack");
     questionArea.textContent = "High Score";
-    
+    firstOption.textContent = initials + "-" + score;
+    secondOption.textContent = "";
+    thirdOption.textContent = "";
+    fourthOption.textContent = "";
+    entryField.classList.add("hide");
+    startButton.classList.add("hide");
+    document.querySelector("hr").classList.add("hide")
+    answerCheck.textContent = "";
+    buttons.classList.remove("hide");    
 }
+
+document.querySelector(".back").addEventListener("click", function () {
+    location.reload();
+})
+
+document.querySelector(".clear").addEventListener("click", function () {
+    localStorage.clear();
+})

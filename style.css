@@ -49,12 +49,6 @@ li {
     margin-right: auto;
 }
 
-.btnHidden {
+.hide {
     display: none;
 }
-
-.initials {
-    display: none;
-}
-
-
