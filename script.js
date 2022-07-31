@@ -22,6 +22,8 @@ var goAgain = document.querySelector(".go");
 var timeLeft = 0;
 var timer;
 var instructiosField = document.querySelector(".instructions");
+var questionNum = [];
+var counter = 1;
 
 
 // Create  question database object
@@ -87,7 +89,7 @@ var questionData =
     "optionA": "Store values so we can use them once.",
     "optionB": "Store values in containers so we can't use them later.",
     "optionC": "Store values so we can use them but cannot change them.",
-    "optionD": "Store values so we can use them later and change them\nfrom the code.",
+    "optionD": "Store values so we can use them later and change them from the code.",
     "correct": "Store values so we can use them later and change them from the code.",
     },
     "8": 
@@ -119,7 +121,7 @@ var questionData =
     },
     
 }
-var size = Object.keys(questionData).length
+// var size = Object.keys(questionData).length
 
 // Add eventListener to the start button. Hide button once it is clicked
 document.querySelector(".btn").addEventListener("click", function () {
@@ -135,20 +137,32 @@ document.querySelector(".viewHigh").addEventListener("click", function () {
 })
 
 // Create the answer options
-startQuiz = function (questionData) {
-    instructiosField.classList.add("hide");
-    document.querySelector("hr").classList.remove("hide");
-    if (questionCount > size) {
+var createQuestion = function () {
+    var random = Math.floor(Math.random() * 10) + 1;
+    
+    if (counter > 10) {
         timeLeft = timerCount;
         clearInterval(timer);
         gameOver();
-    } else {
-    questionArea.textContent = questionData[questionCount].question;
-    firstOption.textContent = questionData[questionCount].optionA;
-    secondOption.textContent = questionData[questionCount].optionB;
-    thirdOption.textContent = questionData[questionCount].optionC;
-    fourthOption.textContent = questionData[questionCount].optionD;
-    }
+    } else if (questionNum.includes(random)) {        
+        createQuestion();
+    } else  {
+        questionCount = random;
+        questionNum.push(random);
+        console.log(questionNum);
+        console.log(questionNum.length);
+        questionArea.textContent = questionData[questionCount].question;
+        firstOption.textContent = questionData[questionCount].optionA;
+        secondOption.textContent = questionData[questionCount].optionB;
+        thirdOption.textContent = questionData[questionCount].optionC;
+        fourthOption.textContent = questionData[questionCount].optionD;
+    }     
+} 
+  
+startQuiz = function (questionData) {
+    instructiosField.classList.add("hide");
+    document.querySelector("hr").classList.remove("hide");
+    createQuestion()
 }
 
 // Add eventListener to the answer options
@@ -168,8 +182,8 @@ checkAnswer = function (selected) {
         answerCheck.textContent = "The last answer was wrong";
         timerCount = timerCount - 10;
     }
-    questionCount++;
-    startQuiz(questionData);
+    counter++;
+    createQuestion();
 }
 
 // Create timer function
