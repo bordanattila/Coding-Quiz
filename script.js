@@ -17,56 +17,107 @@ var playerName = document.querySelector("#player");
 var pname = "";
 var highestScore = 0;
 var higestName = "";
+var header = document.querySelector("header");
+var goAgain = document.querySelector(".go");
+var timeLeft = 0;
+var timer;
+var instructiosField = document.querySelector(".instructions");
+
 
 // Create  question database object
-
 var questionData = 
 {
     "1":
     { 
-    "question": "What does HTML stand for? shfadkjsahf kjdshfjh dsak jhfdja fkjdhasfkj hauihf aurgfdau sbhvgfd ",
-    "optionA": "Hypertext Markup Language",
-    "optionB": "Highlighted Markup Language",
-    "optionC": "Hyper Text Made Language",
-    "optionD": "What",
-    "correct": "Hypertext Markup Language",
+    "question": "The content of the page (such as your pictures, text, links) will show up here.",
+    "optionA": "Head",
+    "optionB": "Body",
+    "optionC": "Style",
+    "optionD": "Folder",
+    "correct": "Body",
     },
     "2": 
     {
-    "question": "What does CPU stand for?",
-    "optionA": "Central Process Unit",
-    "optionB": "Central Processor Unit",
-    "optionC": "Central Processing Unit",
-    "optionD": "Computer Personal Unit",
-    "correct": "Central Processing Unit",
+    "question": "The default link color for hyperlinks:",
+    "optionA": "green",
+    "optionB": "purple",
+    "optionC": "blue",
+    "optionD": "red",
+    "correct": "blue",
     },
     "3": 
     {
-    "question": "According to the International System of Units, how many bytes are in a kilobyte of RAM?",
-    "optionA": "512",
-    "optionB": "1000",
-    "optionC": "1024",
-    "optionD": "500",
-    "correct": "1000",
+    "question": "Which tag is used to underline text?",
+    "optionA": "<a>",
+    "optionB": "<b>",
+    "optionC": "<l>",
+    "optionD": "<u>",
+    "correct": "<u>",
     },
     "4": 
     {
-    "question": "When Gmail first launched, how much storage did it provide for your email?",
-    "optionA": "1GB",
-    "optionB": "512MB",
-    "optionC": "5GB",
-    "optionD": "Unlimited",
-    "correct": "1GB",
+    "question": "Defines a division or a section in an HTML document. Used to group block-elements to format them with CSS",
+    "optionA": "<div>>",
+    "optionB": "<span>",
+    "optionC": "<caption",
+    "optionD": "<group>",
+    "correct": "<div>",
     },
     "5": 
     {
-    "question": "What does the Prt Sc button do?",
-    "optionA": "Nothing",
-    "optionB": "Closes all windows",
-    "optionC": "Saves a .png file of what's on the screen in your screenshots folder in photos",
-    "optionD": "Captures what's on the screen and copies it to your clipboard",
-    "correct": "Captures what's on the screen and copies it to your clipboard",
+    "question": "To make a comment in HTML you use",
+    "optionA": "<!-- -->",
+    "optionB": "/*",
+    "optionC": "//",
+    "optionD": "#",
+    "correct": "<!-- -->",
     },
+    "6": 
+    {
+    "question": "What does CSS stand for?",
+    "optionA": "Colorful Style Sheets",
+    "optionB": "Cascading Style Sheets",
+    "optionC": "Creative Style Sheets",
+    "optionD": "Computer Style Sheets",
+    "correct": "Cascading Style Sheets",
+    },
+    "7": 
+    {
+    "question": "What is a variable?",
+    "optionA": "Store values so we can use them once.",
+    "optionB": "Store values in containers so we can't use them later.",
+    "optionC": "Store values so we can use them but cannot change them.",
+    "optionD": "Store values so we can use them later and change them\nfrom the code.",
+    "correct": "Store values so we can use them later and change them from the code.",
+    },
+    "8": 
+    {
+    "question": "JavaScript files have the file extension (the bit after the name):",
+    "optionA": ".js",
+    "optionB": ".css",
+    "optionC": ".html",
+    "optionD": ".java",
+    "correct": ".js",
+    },
+    "9": 
+    {
+    "question": "What is the name of the CSS selector to style the element with id named car?",
+    "optionA": ".car",
+    "optionB": "car",
+    "optionC": "#car",
+    "optionD": "$car",
+    "correct": "#car",
+    },
+    "10": 
+    {
+    "question": "CSS rules are enclosed with ___________?",
+    "optionA": "<>",
+    "optionB": "()",
+    "optionC": "{}",
+    "optionD": "''",
+    "correct": "{}",
+    },
+    
 }
 var size = Object.keys(questionData).length
 
@@ -85,7 +136,11 @@ document.querySelector(".viewHigh").addEventListener("click", function () {
 
 // Create the answer options
 startQuiz = function (questionData) {
+    instructiosField.classList.add("hide");
+    document.querySelector("hr").classList.remove("hide");
     if (questionCount > size) {
+        timeLeft = timerCount;
+        clearInterval(timer);
         gameOver();
     } else {
     questionArea.textContent = questionData[questionCount].question;
@@ -107,11 +162,11 @@ for (var i = 0; i < document.querySelectorAll(".option").length; i++) {
 // Check if the answer clicke is correct
 checkAnswer = function (selected) {
     if (selected === questionData[questionCount].correct) {
-        answerCheck.textContent = "Last answer: " + "Correct";
+        answerCheck.textContent = "The last answer was correct";
         correctCount++;
     } else {
-        answerCheck.textContent = "Last answer: " + "Wrong";
-        timerCount = timerCount - 5;
+        answerCheck.textContent = "The last answer was wrong";
+        timerCount = timerCount - 10;
     }
     questionCount++;
     startQuiz(questionData);
@@ -119,13 +174,16 @@ checkAnswer = function (selected) {
 
 // Create timer function
 startTimer = function () {
-    timerCount = 20;
-    var timer = setInterval(function () {
+    timerCount = 60;
+    timer = setInterval(function () {
         timerCount--;
         theTimer.textContent = "Timer: " + timerCount;
-        if (timerCount === 0) {
+        if (timerCount <= 0) {
             questionArea.textContent = "Game Over";
             clearInterval(timer);
+            if (timerCount === 0) {
+                clearInterval(timer);
+            }
             gameOver();
         }
     }, 1000);
@@ -134,11 +192,14 @@ startTimer = function () {
 // Create game over screen
 gameOver = function () {
     questionArea.textContent = "End of Game";
-    firstOption.textContent = "Your final score is " + correctCount + ".";
-    secondOption.textContent = "";
+    firstOption.textContent = "Your final score is " + timeLeft + ".";
+    secondOption.textContent = "You had " + correctCount + " correct answers.";
     thirdOption.textContent = "";
     fourthOption.textContent = "";
     entryField.classList.remove("hide");
+    firstOption.classList.remove("btn-style");
+    firstOption.classList.add(".larger-font");
+    secondOption.classList.remove("btn-style");
     store()
 }
 
@@ -147,34 +208,44 @@ store = function () {
     document.querySelector(".submit").addEventListener("click", function () {
         pname = playerName.value;        
         localStorage.setItem("Player name", pname);
-        localStorage.setItem("Score", correctCount);
+        localStorage.setItem("Score", timeLeft);
         var currentHighScore = localStorage.getItem("Higest score");        
-        if (correctCount > currentHighScore) {
-            localStorage.setItem("Higest score", correctCount);
+        if (timeLeft > currentHighScore) {
+            localStorage.setItem("Higest score", timeLeft);
             localStorage.setItem("Higest Score player", pname);
         }
-        answerCheck.textContent = "PUT A BUTTON HERE"
+        answerCheck.textContent = "";
+        goAgain.classList.remove("hide");
+        goAgain.addEventListener("click", function () {
+            window.location.reload();
+        })
     })
 }  
 
+//Viev high score screen
 showHigh = function () {
     var initials = localStorage.getItem("Higest Score player");
     var score = localStorage.getItem("Higest score");
     var buttons = document.querySelector(".goBack");
     questionArea.textContent = "High Score";
-    firstOption.textContent = initials + "-" + score;
+    firstOption.textContent = initials + " - " + score;
     secondOption.textContent = "";
     thirdOption.textContent = "";
     fourthOption.textContent = "";
     entryField.classList.add("hide");
     startButton.classList.add("hide");
+    header.classList.add("hide");
     document.querySelector("hr").classList.add("hide")
     answerCheck.textContent = "";
-    buttons.classList.remove("hide");    
+    buttons.classList.remove("hide"); 
+    firstOption.classList.remove("btn-style");
+    goAgain.classList.add("hide");
+    instructiosField.classList.add("hide");
 }
 
 document.querySelector(".back").addEventListener("click", function () {
     location.reload();
+    header.classList.remove("hide");
 })
 
 document.querySelector(".clear").addEventListener("click", function () {
