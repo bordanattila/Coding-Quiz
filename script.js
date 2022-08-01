@@ -121,7 +121,6 @@ var questionData =
     },
     
 }
-// var size = Object.keys(questionData).length
 
 // Add eventListener to the start button. Hide button once it is clicked
 document.querySelector(".btn").addEventListener("click", function () {
@@ -159,6 +158,7 @@ var createQuestion = function () {
     }     
 } 
   
+// Create start screen
 startQuiz = function (questionData) {
     instructiosField.classList.add("hide");
     document.querySelector("hr").classList.remove("hide");
@@ -259,7 +259,6 @@ showHigh = function () {
 
 document.querySelector(".back").addEventListener("click", function () {
     location.reload();
-    header.classList.remove("hide");
 })
 
 document.querySelector(".clear").addEventListener("click", function () {

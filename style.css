@@ -35,7 +35,8 @@ input {
     flex-direction: column;
     flex-wrap: wrap;
     text-align: center;
-    background: radial-gradient(circle, rgb(185, 184, 171) 0%, rgba(128, 114, 94, 0.604) 100%);
+    background: radial-gradient(circle, rgb(185, 184, 171) 0%, 
+                                        rgba(128, 114, 94, 0.604) 100%);
     border-radius: 10px;
     margin: 0 34%;
     padding: 25px;
