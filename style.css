@@ -6,6 +6,7 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
+    font-size: 2rem;
 }
 
 hr {
@@ -17,22 +18,38 @@ hr {
     width: 75%;
 }
 
+li {
+    margin: 5px;
+}
+
+.larger-font {
+    font-size: 1.5rem;
+}
+
+input {
+    line-height: 1.5rem;
+}
+
 .quiz_area {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     text-align: center;
-    background: radial-gradient(circle, rgb(185, 184, 171) 0%, rgba(128, 114, 94, 0.604) 100%);
-    border: 1px solid #80b9df;
+    background: radial-gradient(circle, rgb(185, 184, 171) 0%, 
+                                        rgba(128, 114, 94, 0.604) 100%);
     border-radius: 10px;
-    /* box-shadow: rgba(60, 64, 67, 2) 0 1px 2px 0,
-      rgba(60, 64, 67, 0.15) 0 2px 4px 3px; */
-    margin: 0 35%;
+    margin: 0 34%;
     padding: 25px;
 }
 
-.timer {
-    
+.timer:hover {
+    cursor: pointer;
+    color: grey;
+}
+
+.viewHigh:hover {
+    cursor: pointer;
+    color: grey;
 }
 
 .answers {
@@ -43,12 +60,31 @@ li {
     list-style-type: none;
 }
 .btn {
-    background-color: aqua;
-    width: 6rem;
     margin-left: auto;
     margin-right: auto;
+    max-width: 30%;
 }
 
 .hide {
     display: none;
 }
+
+.btn-style {
+    border: 0;
+    line-height: 1.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    color: #000;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: aqua;   
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                inset -2px -2px 3px rgba(0, 0, 0, .6);
+    width: fit-content;
+} 
+
+.btn-style:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}
+
