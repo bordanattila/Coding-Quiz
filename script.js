@@ -231,7 +231,11 @@ store = function () {
         answerCheck.textContent = "";
         goAgain.classList.remove("hide");
         goAgain.addEventListener("click", function () {
+<<<<<<< HEAD
             location.reload();
+=======
+        location.reload();
+>>>>>>> 274eb396577a098c5bfe9bc4ccc3917650c0ca6a
         })
     })
 }  
