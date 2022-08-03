@@ -231,7 +231,7 @@ store = function () {
         answerCheck.textContent = "";
         goAgain.classList.remove("hide");
         goAgain.addEventListener("click", function () {
-            window.location.reload();
+            location.reload();
         })
     })
 }  
